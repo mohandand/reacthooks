@@ -1,4 +1,4 @@
-import  React, {useReducer} from 'react'
+import  React, {useReducer, useRef} from 'react'
 
 const App = () => {
 
@@ -14,14 +14,20 @@ const App = () => {
   }
 
   const [state, dispatch] = useReducer(reducer, {count: 0, showText: true})
+    const myRef = useRef(null)
 
+    const handleFocus = () => {
+      myRef.current.focus();
+    }
   return(
     <div>
       <div>Count: {state.count}</div>
       {state.showText && <div>I am Visible now !!!</div>}
       <button onClick={() => dispatch({type: 'INCREMENT'})}>Count Increase</button>
       <button onClick={() => dispatch({type:'toggleShowText' })}>Toggle Text</button>
-    </div>
+      <h2>Use Ref</h2>
+      <input type="text" ref={myRef}/><button onClick = {() => handleFocus()}>Focus </button>
+      </div>
   )
 }
 
